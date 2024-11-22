@@ -118,9 +118,10 @@ function PacientListParams({ setParams }) {
                 options={options}
                 defaultValue={options[2]}
                 onChange={(e) => setDesfecho(e.value)}
+                className='self-end'
             />
 
-            <div className='flex gap-4'>
+            <div className='flex gap-4 self-end'>
             <button onClick={() => setParams({
                 idade: idade,
                 desfecho: desfecho,
