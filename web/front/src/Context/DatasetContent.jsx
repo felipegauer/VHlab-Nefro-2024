@@ -5,9 +5,10 @@ const DatasetContent = createContext();
 
 const DatasetProvyder = ({ children }) => {
     const [name, setName] = useState("DBCleanPlusCompleted2");
+    const [infoDataSet, setInfoDataSet] = useState(null);
     
     return (
-        <DatasetContent.Provider value={{name,setName}}>
+        <DatasetContent.Provider value={{name,setName,infoDataSet,setInfoDataSet}}>
             {children}
         </DatasetContent.Provider>
     );

@@ -11,12 +11,14 @@ export default function HomePage() {
 
     // ]
     return (
-        <div className=" pt-20 h-full">
+        <div className=" h-full">
             {/* <div className="w-full h-[400px] m-auto">
                     <CarouselImg imgsSrc={imgs}/>
                     <CarouselImg/>
                 </div> */}
-            <div className="container mx-auto text-3xl h-full flex justify-center items-center">
+                
+            <div className="container mx-auto text-3xl h-full flex flex-col justify-center items-center ">
+                {/* <img src={NefroRim} alt="" className="w-96" /> */}
                 <Link to='/dataset' className="color-bg px-6 py-2 rounded-xl text-white">
                     DataSet
                 </Link>

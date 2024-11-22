@@ -9,6 +9,7 @@ import { PacientContext } from "../Context/PacientContext"
 import { DatasetContent } from "../Context/DatasetContent"
 import PacientListParams from "./PacientListParams"
 
+
 export default function PacientList() {
 
     const {pacientList, setPacientList} = useContext(PacientContext)
@@ -16,6 +17,8 @@ export default function PacientList() {
     const [params,setParams] = useState({
         idade: [18, 100],
         desfecho: 'Todos',
+        codigo: '',
+        date: null
     })
     const {name} = useContext(DatasetContent)
 
@@ -50,6 +53,10 @@ export default function PacientList() {
             {pacientList?.map(p =>{
                 if (p.idade < params.idade[0] || p.idade > params.idade[1]) return null
                 if (params.desfecho != 'Todos' && p.desfecho != params.desfecho) return null
+                if (params.codigo != '' && !p.codigo.includes(params.codigo)) return null
+                
+                if (params.date != null && (params.date[0] > new Date(p.inicio) || params.date[1] < new Date(p.inicio))) return null
+
                 return (
                 <li key={p.codigo} > {/*className="odd:bg-white even:bg-gray-50"*/}
                     <Link className="flex justify-between gap-x-6 py-5 text-lg transition-all transform hover:scale-[0.99] delay-0" to={`/paciente/${p.codigo}`}>

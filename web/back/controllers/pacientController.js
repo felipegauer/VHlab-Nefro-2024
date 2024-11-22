@@ -10,7 +10,8 @@ const pacientController = {
             desfecho: pacient.desfecho,
             idade: pacient.idade,
             sexo: pacient.sexo,
-            range: pacient.range}}));
+            range: pacient.range,
+            inicio: pacient.inicio,}}));
     },
 
     getPacientExam: async function(req, res) {

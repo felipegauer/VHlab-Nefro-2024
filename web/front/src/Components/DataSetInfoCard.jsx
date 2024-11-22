@@ -8,7 +8,7 @@ const classNameString = "w-max p-4 rounded-lg border"
 export default function DataSetInfoCard() {
     const [loading, setLoading] = useState(true)
     const [info, setInfo] = useState(null)
-    const {name} = useContext(DatasetContent)
+    const {name,setInfoDataSet} = useContext(DatasetContent)
 
     useEffect(() => {
         const getData = async () => {
@@ -17,9 +17,8 @@ export default function DataSetInfoCard() {
             if (data.err)
                 console.log(data.err);
             else {
-                console.log(data);
-                
                 setInfo(data)
+                setInfoDataSet(data)
                 setLoading(false)
             }
         }
