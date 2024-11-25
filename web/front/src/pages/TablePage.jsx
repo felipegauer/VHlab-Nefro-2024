@@ -32,7 +32,9 @@ export default function Table() {
             getData();
     }, [])
 
-
+const formatData = (data) => { 
+    return Number(data.toFixed(2))
+}
 
     return (
         <div className="container mx-auto bg flex flex-col h-full overflow-auto pe-4 pb-4">
@@ -41,7 +43,7 @@ export default function Table() {
                     <thead className=" text-gray-700 uppercase bg-gray-50 dark:text-gray-400">
                         <tr>
                             {dataSet.head.map((item, index) => (
-                                <th key={index} scope="col" className="px-6 py-3">
+                                <th key={index} scope="col" className="px-6 py-3 text-center">
                                     {item}
                                 </th>))}
                         </tr>
@@ -55,8 +57,8 @@ export default function Table() {
                                 {
                                     dataSet.head.map((key, index) =>
 
-                                        index !== 0 && (<td key={key} className="px-6 py-4">
-                                            {item[key]}
+                                        index !== 0 && (<td key={key} className="px-6 py-4 text-center">
+                                            {formatData(item[key])}
                                         </td>
                                         ))
                                 }
