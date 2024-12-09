@@ -2,9 +2,9 @@
 import { useParams } from "react-router-dom";
 import LineGraphCard from "../Components/graphsCards/LineGraphCard";
 import PacientCard from "../Components/PacientCard";
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import Service from "../Service/backEnd";
-import { DatasetContent } from "../Context/DatasetContent";
+
 
 
 
@@ -12,16 +12,16 @@ function PacientPage() {
 
   const [pacient, setPacient] = useState(null)
   const [dataSets, setDataSets] = useState(null)
-  const {name} = useContext(DatasetContent)
 
 
     const { codigo } = useParams()
+    const {dataset} = useParams()
 
     useEffect(() => {
 
         const getData = async () => {
 
-            const data = await Service.get(`/api/pacient/${name}/${codigo}`);
+            const data = await Service.get(`/api/pacient/${dataset}/${codigo}`);
             if (data.err)
                 console.log(data.err);
             else{
@@ -31,7 +31,7 @@ function PacientPage() {
         }
 
         const getDataSet = async () => {
-          const data = await Service.get(`/api/pacient/exams/${name}/${codigo}`);
+          const data = await Service.get(`/api/pacient/exams/${dataset}/${codigo}`);
             if (data.err)
                 console.log(data.err);
             else{

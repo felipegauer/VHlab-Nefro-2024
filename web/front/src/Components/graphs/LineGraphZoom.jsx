@@ -3,11 +3,18 @@
 
 import ReactApexChart from 'react-apexcharts';
 import PropTypes from 'prop-types';
-import { colors } from '@mui/material';
 import { useEffect } from 'react';
 
 
 export default function LineGraphZoom({ dates, series }) {
+
+  let lowset_point = 125
+  let highest_point = 139
+  let target_low = 129
+  let target_high = 135
+
+  let stop_percent_low = 100 -((target_low - lowset_point) / (highest_point - lowset_point) * 100) 
+  let stop_percent_heigh = 100 -((target_high - lowset_point) / (highest_point - lowset_point) * 100)
 
   const formattedSeries = series || [
     {
@@ -15,16 +22,11 @@ export default function LineGraphZoom({ dates, series }) {
       data: dates.data.map((point) => ({
         x: point.x,
         y: point.y,
-        color: point.y < 10
-          ? '#00E396' // Verde
-          : point.y > 20
-            ? '#FF4560' // Vermelho
-            : '#FEB019', // Amarelo
       })),
     },
   ];
   const state = {
-    series: series ? series : formattedSeries,
+    series: formattedSeries,
     // [{
     //   name: dates.name,
     //   data: dates.data
@@ -39,9 +41,38 @@ export default function LineGraphZoom({ dates, series }) {
           enabled: true,
           autoScaleYaxis: true
         },
+        defaultLocale: 'pt-br',
+        locales: [{
+          name: 'pt-br',
+          options: {
+            months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            shortMonths: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            // days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            // shortDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            toolbar: {
+              download: 'Download SVG',
+              selection: 'Selecionar',
+              selectionZoom: 'Selection Zoom',
+              zoomIn: 'Zoom In',
+              zoomOut: 'Zoom Out',
+              pan: 'Mover',
+              reset: 'Reset Zoom',
+            }
+          }
+        }],
         toolbar: {
           autoSelected: 'zoom'
         }
+      },
+      grid:{
+        // borderColor: '#90A4AE30',
+        strokeDashArray: 0,
+        position: 'back',
+        xaxis: {
+          lines: {
+              show: false
+          }
+      },  
       },
       dataLabels: {
         enabled: false,
@@ -59,14 +90,49 @@ export default function LineGraphZoom({ dates, series }) {
       fill: {
         type: 'gradient',
         gradient: {
+          type:'vertical',
           shadeIntensity: 1,
           inverseColors: false,
           opacityFrom: 0.7,
           opacityTo: 0,
-          stops: [0, 90, 100]
+          stops: [0, 90, 100],
+          // colorStops:
+          //             [
+          //               {
+          //                   offset: 0,
+          //                   color: '#FCB51D',
+          //                   opacity: 1
+          //               },
+          //               {
+          //                   offset: stop_percent_heigh,
+          //                   color: "#FCB51D",
+          //                   opacity: 1
+          //               },
+          //                 {
+          //                     offset: stop_percent_heigh,
+          //                     color: '#0088ee',
+          //                     opacity: 1
+          //                 },
+          //                 {
+          //                     offset: stop_percent_low,
+          //                     color: "#0088ee",
+          //                     opacity: 1
+          //                 },
+          //                 {
+          //                     offset: stop_percent_low,
+          //                     color: '#FCB51D',
+          //                     opacity: 1
+          //                 },
+          //                 {
+          //                     offset: 100,
+          //                     color: '#FCB51D',
+          //                     opacity: 1
+          //                 }
+          //             ]
         },
       },
       yaxis: {
+        tickAmount: undefined,
         labels: {
           formatter: function (val) {
             return val;
@@ -79,38 +145,38 @@ export default function LineGraphZoom({ dates, series }) {
       xaxis: {
         type: 'datetime',
       },
-      annotations: {
-        yaxis: [
-          {
-            y: 80, // Posição da linha superior
-            borderColor: "#FF4560",
-            // fillColor: "#FF4560",
-            strokeDashArray: 0,
-            // click
-            label: {
-              borderColor: "#FF4560",
-              style: {
-                color: "#fff",
-                background: "#FF4560",
-              },
-              text: "Muito Grande", // Texto da linha superior
-            },
-          },
-          {
-            y: 10, // Posição da linha inferior
-            borderColor: "#00E396",
-            strokeDashArray: 0,
-            label: {
-              borderColor: "#00E396",
-              style: {
-                color: "#fff",
-                background: "#00E396",
-              },
-              text: "Muito Baixo", // Texto da linha inferior
-            },
-          },
-        ],
-      },
+      // annotations: {
+      //   yaxis: [
+      //     {
+      //       y: 80, // Posição da linha superior
+      //       borderColor: "#FC901D",
+      //       // fillColor: "#FF4560",
+      //       strokeDashArray: 0,
+      //       // click
+      //       label: {
+      //         borderColor: "#FC901D",
+      //         style: {
+      //           color: "#000",
+      //           background: "#FC901D",
+      //         },
+      //         text: "Acima", // Texto da linha superior
+      //       },
+      //     },
+      //     {
+      //       y: 10, // Posição da linha inferior
+      //       borderColor: "#FC901D",
+      //       strokeDashArray: 0,
+      //       label: {
+      //         borderColor: "#FC901D",
+      //         style: {
+      //           color: "#000",
+      //           background: "#FC901D",
+      //         },
+      //         text: "Abaixo", // Texto da linha inferior
+      //       },
+      //     },
+      //   ],
+      // },
       stroke: {
         curve: "smooth",
       },
@@ -123,13 +189,18 @@ export default function LineGraphZoom({ dates, series }) {
         //   }
         // }
       },
+      plotOptions: {
+        area: {
+          fillTo: 'origin',
+        }
+      }
     },
   };
 
   useEffect(() => {
-    console.log(state.series);
-
-  }, [state.series, state.options])
+    console.log(stop_percent_low, stop_percent_heigh);
+    
+  }, []);
 
   return (
     <>

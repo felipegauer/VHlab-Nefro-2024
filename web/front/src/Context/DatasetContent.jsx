@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const DatasetContent = createContext();
 
 const DatasetProvyder = ({ children }) => {
-    const [name, setName] = useState("DBCleanPlusCompleted2");
+    const [name, setName] = useState("patients_synthetic");
     const [infoDataSet, setInfoDataSet] = useState(null);
     
     return (

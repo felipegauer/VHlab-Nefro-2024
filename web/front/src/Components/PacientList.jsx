@@ -59,7 +59,7 @@ export default function PacientList() {
 
                 return (
                 <li key={p.codigo} > {/*className="odd:bg-white even:bg-gray-50"*/}
-                    <Link className="flex justify-between gap-x-6 py-5 text-lg transition-all transform hover:scale-[0.99] delay-0" to={`/paciente/${p.codigo}`}>
+                    <Link className="flex justify-between gap-x-6 py-5 text-lg transition-all transform hover:scale-[0.99] delay-0" to={`/paciente/${name}/${p.codigo}`}>
                         <div className="flex min-w-0 gap-x-4 ">
                             <img className={`h-12 w-12 flex-none rounded-full bg-gray-50 ${p.desfecho == "Vivo" ? "" : "grayscale"}`} src={p.sexo == "Masculino" ? Male : Female} alt="" />
                             <div className="min-w-0 flex-auto">

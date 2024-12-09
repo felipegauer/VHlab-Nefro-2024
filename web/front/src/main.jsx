@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/paciente/:codigo",
+        path: "/paciente/:dataset/:codigo",
         element: <PacientPage />
       },
       {

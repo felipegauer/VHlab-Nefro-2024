@@ -1,5 +1,6 @@
 // import { CarouselImg } from "../Components/Carouselmg";
 import { Link } from "react-router-dom";
+import ApexNegative from "../Components/graphs/ApexNegative";
 
 
 export default function HomePage() {
@@ -23,6 +24,7 @@ export default function HomePage() {
                     DataSet
                 </Link>
 
+                <ApexNegative/>
 
             </div>
         </div>
