@@ -6,20 +6,20 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 
 
-export default function LineGraphZoom({ dates, series }) {
+export default function LineGraphZoom({ dates, series}) {
 
-  let lowset_point = 125
-  let highest_point = 139
-  let target_low = 129
-  let target_high = 135
+  // let lowset_point = 125
+  // let highest_point = 139
+  // let target_low = 129
+  // let target_high = 135
 
-  let stop_percent_low = 100 -((target_low - lowset_point) / (highest_point - lowset_point) * 100) 
-  let stop_percent_heigh = 100 -((target_high - lowset_point) / (highest_point - lowset_point) * 100)
+  // let stop_percent_low = 100 -((target_low - lowset_point) / (highest_point - lowset_point) * 100) 
+  // let stop_percent_heigh = 100 -((target_high - lowset_point) / (highest_point - lowset_point) * 100)
 
   const formattedSeries = series || [
     {
       name: dates.name || 'paciente',
-      data: dates.data.map((point) => ({
+      data:dates.data.map((point) => ({
         x: point.x,
         y: point.y,
       })),
@@ -197,10 +197,6 @@ export default function LineGraphZoom({ dates, series }) {
     },
   };
 
-  useEffect(() => {
-    console.log(stop_percent_low, stop_percent_heigh);
-    
-  }, []);
 
   return (
     <>

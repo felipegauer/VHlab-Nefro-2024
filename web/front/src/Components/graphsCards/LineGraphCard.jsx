@@ -6,7 +6,8 @@ import LineGraphZoom from "../graphs/LineGraphZoom";
 import PropType from "prop-types";
 
 const classNameString = "w-full lg:w-full min-h-[350px]"
-export default function LineGraphCard({ dataSet, series }) {
+export default function LineGraphCard({ dataSet, series}) {
+
     
     return (!dataSet && !series)? 
     <Skeleton className={classNameString}/> : 
@@ -16,5 +17,5 @@ export default function LineGraphCard({ dataSet, series }) {
 
 LineGraphCard.propTypes = {
     dataSet: PropType.object,
-    series: PropType.array
+    series: PropType.array,
 };

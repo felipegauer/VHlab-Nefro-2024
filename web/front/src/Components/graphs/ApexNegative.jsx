@@ -12,7 +12,8 @@ export default function ApexNegative() {
         series: [
             {
                 data: [0, -41, 35, -51, 0, 62, -69, 32, -32, 54, 16, -50],
-            }
+                type: 'area'
+            },
         ],
         options: {
             chart: {
@@ -34,55 +35,30 @@ export default function ApexNegative() {
                     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
                 ],
             },
-            fill: {
-              type: "gradient",
-              gradient: {
-                  type:'vertical',
-                  colorStops:
-                      [
-                          {
-                              offset: 0,
-                              color: '#1ee0ac',
-                              opacity: 1
-                          },
-                          {
-                              offset: stop_percent,
-                              color: "#1ee0ac",
-                              opacity: 1
-                          },
-                          {
-                              offset: stop_percent,
-                              color: '#e85347',
-                              opacity: 1
-                          },
-                          {
-                              offset: 100,
-                              color: '#e85347',
-                              opacity: 1
-                          }
-                      ]
-              }
-          },
             stroke: {
               width: '0',
           },
           markers: {
               colors: '#ccc'
           },
-          plotOptions: {
-            area: {
-              
-              fillTo:  'origin',
-            }
-        },
-        
+        plotOptions: {
+            line: {
+              colors: {
+                threshold: 0,
+                colorAboveThreshold: '#0088ee',
+                colorBelowThreshold: '#ff0000',
+              },
+            },
+        }
           
         },
     };
 
     return (
         <div id="chart">
-            <ReactApexChart options={state.options} series={state.series} type="area" height={500} width={500} />
+            <ReactApexChart 
+            
+            options={state.options} series={state.series} type="area" height={500} width={500} />
         </div>
     );
 }
