@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const pacientRouter = require('./routes/pacientRouter')
+const infoRouter = require('./routes/infoRouter')
 const userRouter = require('./routes/userRouter')
 const datasetRouter = require('./routes/datasetRouter')
 const authenticateToken = require('./auth/authMiddleware')
@@ -15,6 +16,7 @@ const db = mongoose.connection;
 
 app.use('/user',express.json() ,userRouter);
 app.use('/pacient',express.json() ,pacientRouter);
+app.use('/info',express.json() ,infoRouter);
 app.use('/dataset',express.json() , datasetRouter);//app.use('/dataset',express.json() ,authenticateToken, datasetRouter);
 
 db.once('open',()=>{console.log("Connected to MongoDb");});

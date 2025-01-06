@@ -1,22 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Outlet
-} from "react-router-dom";
-import './index.css'
-import Navbar2 from './Components/Navbar/Navbar2.jsx'
-import { PacientProvyder } from './Context/PacientContext.jsx';
-import PageNotFound from './pages/PageNotFound.jsx';
-import HomePage from './pages/HomePage.jsx';
-import PacientPage from './pages/PacientPage.jsx';
-import AboutPage from './pages/AboutPage.jsx';
-import GraphPage from './pages/GraphPage.jsx';
-import DataSetPage from './pages/DataSetPage.jsx';
-import { DatasetProvyder } from './Context/DatasetContent.jsx';
-
-
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import "./index.css";
+import Navbar2 from "./Components/Navbar/Navbar2.jsx";
+import { PacientProvyder } from "./Context/PacientContext.jsx";
+import PageNotFound from "./pages/PageNotFound.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import PacientPage from "./pages/PacientPage.jsx";
+import AboutPage from "./pages/AboutPage.jsx";
+import GraphPage from "./pages/GraphPage.jsx";
+import DataSetPage from "./pages/DataSetPage.jsx";
+import { DatasetProvyder } from "./Context/DatasetContent.jsx";
+import { ExamInfoProvyder } from "./Context/ExamsInfoContext";
 
 const Layout = () => (
   <>
@@ -36,7 +31,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/paciente/:dataset/:codigo",
-        element: <PacientPage />
+        element: (
+          <ExamInfoProvyder>
+            <PacientPage />
+          </ExamInfoProvyder>
+        ),
       },
       {
         path: "/sobre",
@@ -58,12 +57,12 @@ const router = createBrowserRouter([
   },
 ]);
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <DatasetProvyder>
       <PacientProvyder>
         <RouterProvider router={router} />
       </PacientProvyder>
     </DatasetProvyder>
-  </StrictMode>,
-)
+  </StrictMode>
+);

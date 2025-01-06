@@ -3,10 +3,23 @@
 
 import ReactApexChart from 'react-apexcharts';
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { ExamInfoContext } from '../../Context/ExamsInfoContext';
 
 
 export default function LineGraphZoom({ dates, series}) {
+
+  const { examsInfo} = useContext(ExamInfoContext);
+  const [info, setInfo] = useState(null);
+
+  useEffect(() => {
+    if(examsInfo){
+      const aux = examsInfo.find((e) => e.exam === dates.name);
+      if(aux)
+        setInfo(aux)
+    }
+  },[])
+
 
   // let lowset_point = 125
   // let highest_point = 139
@@ -145,38 +158,38 @@ export default function LineGraphZoom({ dates, series}) {
       xaxis: {
         type: 'datetime',
       },
-      // annotations: {
-      //   yaxis: [
-      //     {
-      //       y: 80, // Posição da linha superior
-      //       borderColor: "#FC901D",
-      //       // fillColor: "#FF4560",
-      //       strokeDashArray: 0,
-      //       // click
-      //       label: {
-      //         borderColor: "#FC901D",
-      //         style: {
-      //           color: "#000",
-      //           background: "#FC901D",
-      //         },
-      //         text: "Acima", // Texto da linha superior
-      //       },
-      //     },
-      //     {
-      //       y: 10, // Posição da linha inferior
-      //       borderColor: "#FC901D",
-      //       strokeDashArray: 0,
-      //       label: {
-      //         borderColor: "#FC901D",
-      //         style: {
-      //           color: "#000",
-      //           background: "#FC901D",
-      //         },
-      //         text: "Abaixo", // Texto da linha inferior
-      //       },
-      //     },
-      //   ],
-      // },
+      annotations: {
+        yaxis: [
+          {
+            y: info?info.high:null, // Posição da linha superior
+            borderColor: "#FC901D",
+            // fillColor: "#FF4560",
+            strokeDashArray: 0,
+            // click
+            label: {
+              borderColor: "#FC901D",
+              style: {
+                color: "#000",
+                background: "#FC901D",
+              },
+              text: "Acima", // Texto da linha superior
+            },
+          },
+          {
+            y: info?info.low:null, // Posição da linha inferior
+            borderColor: "#FC901D",
+            strokeDashArray: 0,
+            label: {
+              borderColor: "#FC901D",
+              style: {
+                color: "#000",
+                background: "#FC901D",
+              },
+              text: "Abaixo", // Texto da linha inferior
+            },
+          },
+        ],
+      },
       stroke: {
         curve: "smooth",
       },
