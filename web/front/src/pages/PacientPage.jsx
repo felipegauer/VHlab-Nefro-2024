@@ -32,7 +32,7 @@ function PacientPage() {
       const data = await Service.get(`/api/pacient/exams/${dataset}/${codigo}`);
       if (data.err) console.log(data.err);
       else {
-        setDataSets(data.exams);
+        setDataSets({ml:data.exams,real:data.exams_real});
       }
     };
 
@@ -111,13 +111,15 @@ function PacientPage() {
           {/* <LineGraphCard dataSet={dataSets?dataSets[0]:null}/> */}
           {dataSets ? (
             <>
-              {Object.entries(dataSets)?.map(([, value], index) => (
+              {Object.entries(dataSets.real)?.map(([, value], index) => 
+              (
                 <LineGraphCard
                   key={index}
-                  dataSet={value}
+                  dataSet={{real:value, ml:dataSets.ml[index]}}
                   dataShow={checkbox}
                 />
-              ))}
+              )
+              )}
               {/* <LineGraphCard series={handleSeries()}/> */}
             </>
           ) : (

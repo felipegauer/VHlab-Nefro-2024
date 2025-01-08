@@ -12,10 +12,10 @@ export default function LineGraphZoom({ dates, series, dataShow }) {
 
   useEffect(() => {
     if (examsInfo) {
-      const aux = examsInfo.find((e) => e.exam === dates.name);
+      const aux = examsInfo.find((e) => e.exam === dates.ml.name);
       if (aux) setInfo(aux);
     }
-  }, []);
+  }, [dates.ml.name, examsInfo]);
 
   // let lowset_point = 125
   // let highest_point = 139
@@ -25,17 +25,37 @@ export default function LineGraphZoom({ dates, series, dataShow }) {
   // let stop_percent_low = 100 -((target_low - lowset_point) / (highest_point - lowset_point) * 100)
   // let stop_percent_heigh = 100 -((target_high - lowset_point) / (highest_point - lowset_point) * 100)
 
-  const formattedSeries = series || [
-    {
-      name: dates.name || "paciente",
-      data: dates.data.map((point) => ({
+  const formattedSeries =()=>{
+    const serie = []
+
+    if(dataShow?.real_data)
+      serie.push({
+      name: dates.real.name || "paciente",
+      data: dates.real.data.map((point) => ({
         x: point.x,
         y: point.y,
       })),
-    },
-  ];
+      // color: "#9C27B0"
+      
+    })
+
+    if(dataShow?.ml_data)
+      serie.push({
+      name: dates.ml.name || "ml",
+      data: dates.ml.data.map((point) => ({
+        x: point.x,
+        y: point.y,
+      })),
+      // color: "#9C27B0"
+    })
+
+    console.log(serie);
+
+    return serie
+  }
+  
   const state = {
-    series: formattedSeries,
+    series: formattedSeries(),
     // [{
     //   name: dates.name,
     //   data: dates.data
@@ -121,7 +141,7 @@ export default function LineGraphZoom({ dates, series, dataShow }) {
         size: 5,
       },
       title: {
-        text: dates ? dates.name : "paciente",
+        text: dates ? dates.real.name : "paciente",
         align: "center",
       },
       fill: {
@@ -168,6 +188,8 @@ export default function LineGraphZoom({ dates, series, dataShow }) {
           //             ]
         },
       },
+
+      colors: ["#008FFBff", "#00E396ff"],
       yaxis: {
         tickAmount: undefined,
         labels: {
@@ -185,7 +207,7 @@ export default function LineGraphZoom({ dates, series, dataShow }) {
       annotations: {
         yaxis: [
           {
-            y: dataShow?.annotations ? (info ? info.high : -1000) : -1000, // Posição da linha superior
+            y: dataShow?.annotations ? (info ? info.high : -1000) : -1000, // Posição da linha superior dataShow?.annotations ? (info ? info.high : -1000) : -1000,
             borderColor: "#FC901D",
             // fillColor: "#FF4560",
             strokeDashArray: 0,
@@ -232,8 +254,6 @@ export default function LineGraphZoom({ dates, series, dataShow }) {
         },
       },
     },
-
-    
   };
 
   return (
@@ -255,6 +275,8 @@ LineGraphZoom.propTypes = {
   series: PropTypes.array,
   dataShow: PropTypes.shape({
     annotations: PropTypes.bool,
+    ml_data: PropTypes.bool,
+    real_data: PropTypes.bool,
   }),
 };
 
