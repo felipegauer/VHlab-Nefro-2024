@@ -1,38 +1,34 @@
 // https://www.youtube.com/watch?v=dxUyI2wfYSI
 // https://apexcharts.com/react-chart-demos/line-charts/zoomable-timeseries/
 
-import ReactApexChart from 'react-apexcharts';
-import PropTypes from 'prop-types';
-import { useContext, useEffect, useState } from 'react';
-import { ExamInfoContext } from '../../Context/ExamsInfoContext';
+import ReactApexChart from "react-apexcharts";
+import PropTypes from "prop-types";
+import { useContext, useEffect, useState } from "react";
+import { ExamInfoContext } from "../../Context/ExamsInfoContext";
 
-
-export default function LineGraphZoom({ dates, series}) {
-
-  const { examsInfo} = useContext(ExamInfoContext);
+export default function LineGraphZoom({ dates, series, dataShow }) {
+  const { examsInfo } = useContext(ExamInfoContext);
   const [info, setInfo] = useState(null);
 
   useEffect(() => {
-    if(examsInfo){
+    if (examsInfo) {
       const aux = examsInfo.find((e) => e.exam === dates.name);
-      if(aux)
-        setInfo(aux)
+      if (aux) setInfo(aux);
     }
-  },[])
-
+  }, []);
 
   // let lowset_point = 125
   // let highest_point = 139
   // let target_low = 129
   // let target_high = 135
 
-  // let stop_percent_low = 100 -((target_low - lowset_point) / (highest_point - lowset_point) * 100) 
+  // let stop_percent_low = 100 -((target_low - lowset_point) / (highest_point - lowset_point) * 100)
   // let stop_percent_heigh = 100 -((target_high - lowset_point) / (highest_point - lowset_point) * 100)
 
   const formattedSeries = series || [
     {
-      name: dates.name || 'paciente',
-      data:dates.data.map((point) => ({
+      name: dates.name || "paciente",
+      data: dates.data.map((point) => ({
         x: point.x,
         y: point.y,
       })),
@@ -46,51 +42,79 @@ export default function LineGraphZoom({ dates, series}) {
     // }],
     options: {
       chart: {
-        type: 'area',
+        type: "area",
         stacked: false,
         height: 350,
         zoom: {
-          type: 'x',
+          type: "x",
           enabled: true,
-          autoScaleYaxis: true
+          autoScaleYaxis: true,
         },
-        defaultLocale: 'pt-br',
-        locales: [{
-          name: 'pt-br',
-          options: {
-            months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            shortMonths: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-            // days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-            // shortDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-            toolbar: {
-              download: 'Download SVG',
-              selection: 'Selecionar',
-              selectionZoom: 'Selection Zoom',
-              zoomIn: 'Zoom In',
-              zoomOut: 'Zoom Out',
-              pan: 'Mover',
-              reset: 'Reset Zoom',
-            }
-          }
-        }],
+        defaultLocale: "pt-br",
+        locales: [
+          {
+            name: "pt-br",
+            options: {
+              months: [
+                "Janeiro",
+                "Fevereiro",
+                "Março",
+                "Abril",
+                "Maio",
+                "Junho",
+                "Julho",
+                "Agosto",
+                "Setembro",
+                "Outubro",
+                "Novembro",
+                "Dezembro",
+              ],
+              shortMonths: [
+                "Jan",
+                "Fev",
+                "Mar",
+                "Abr",
+                "Mai",
+                "Jun",
+                "Jul",
+                "Ago",
+                "Set",
+                "Out",
+                "Nov",
+                "Dez",
+              ],
+              // days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+              // shortDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+              toolbar: {
+                download: "Download SVG",
+                selection: "Selecionar",
+                selectionZoom: "Selection Zoom",
+                zoomIn: "Zoom In",
+                zoomOut: "Zoom Out",
+                pan: "Mover",
+                reset: "Reset Zoom",
+              },
+            },
+          },
+        ],
         toolbar: {
-          autoSelected: 'zoom'
-        }
+          autoSelected: "zoom",
+        },
       },
-      grid:{
+      grid: {
         // borderColor: '#90A4AE30',
         strokeDashArray: 0,
-        position: 'back',
+        position: "back",
         xaxis: {
           lines: {
-              show: false
-          }
-      },  
+            show: false,
+          },
+        },
       },
       dataLabels: {
         enabled: false,
         style: {
-          colors: ['#00E396', '#FF4560', '#FEB019'],
+          colors: ["#00E396", "#FF4560", "#FEB019"],
         },
       },
       markers: {
@@ -98,12 +122,12 @@ export default function LineGraphZoom({ dates, series}) {
       },
       title: {
         text: dates ? dates.name : "paciente",
-        align: 'center'
+        align: "center",
       },
       fill: {
-        type: 'gradient',
+        type: "gradient",
         gradient: {
-          type:'vertical',
+          type: "vertical",
           shadeIntensity: 1,
           inverseColors: false,
           opacityFrom: 0.7,
@@ -152,16 +176,16 @@ export default function LineGraphZoom({ dates, series}) {
           },
         },
         title: {
-          text: 'Valor'
+          text: "Valor",
         },
       },
       xaxis: {
-        type: 'datetime',
+        type: "datetime",
       },
       annotations: {
         yaxis: [
           {
-            y: info?info.high:null, // Posição da linha superior
+            y: dataShow?.annotations ? (info ? info.high : -1000) : -1000, // Posição da linha superior
             borderColor: "#FC901D",
             // fillColor: "#FF4560",
             strokeDashArray: 0,
@@ -176,7 +200,7 @@ export default function LineGraphZoom({ dates, series}) {
             },
           },
           {
-            y: info?info.low:null, // Posição da linha inferior
+            y: dataShow?.annotations ? (info ? info.low : -1000) : -1000, // Posição da linha inferior
             borderColor: "#FC901D",
             strokeDashArray: 0,
             label: {
@@ -204,17 +228,22 @@ export default function LineGraphZoom({ dates, series}) {
       },
       plotOptions: {
         area: {
-          fillTo: 'origin',
-        }
-      }
+          fillTo: "origin",
+        },
+      },
     },
-  };
 
+    
+  };
 
   return (
     <>
       <div className="h-full" id="chart">
-        <ReactApexChart options={state.options} series={state.series} type='area' />
+        <ReactApexChart
+          options={state.options}
+          series={state.series}
+          type="area"
+        />
       </div>
       <div id="html-dist"></div>
     </>
@@ -223,9 +252,11 @@ export default function LineGraphZoom({ dates, series}) {
 
 LineGraphZoom.propTypes = {
   dates: PropTypes.object,
-  series: PropTypes.array
+  series: PropTypes.array,
+  dataShow: PropTypes.shape({
+    annotations: PropTypes.bool,
+  }),
 };
-
 
 // plotOptions: {
 //   heatmap: {

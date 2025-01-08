@@ -11,10 +11,10 @@ function PacientPage() {
   const [checkbox, setCheckbox] = useState({
     real_data: false,
     ml_data: true,
-    annotations: false,
+    annotations: true,
   });
 
-  const { examsInfo, setExamsInfo } = useContext(ExamInfoContext);
+  const { setExamsInfo } = useContext(ExamInfoContext);
 
   const { codigo } = useParams();
   const { dataset } = useParams();
@@ -42,7 +42,7 @@ function PacientPage() {
       else {
         setExamsInfo(data);
       }
-    }
+    };
 
     getData();
     getDataSet();
@@ -61,11 +61,8 @@ function PacientPage() {
   // }
 
   const handleChecked = (e) => {
-    if (e.target.checked) {
-      setCheckbox({ ...checkbox, [e.target.value]: true });
-    } else {
-      setCheckbox({ ...checkbox, [e.target.value]: false });
-    }
+    const { name, checked } = e.target;
+    setCheckbox({ ...checkbox, [name]: checked });
   };
 
   return (
@@ -74,59 +71,62 @@ function PacientPage() {
         <div className="w-max flex xl:flex-row xl:items-end gap-4 flex-col">
           <PacientCard pacient={pacient} />
           <div className="flex gap-2 items-center">
-            <div className="flex gap-1 items-center">
+            <label className="flex gap-1 items-center text-lg text-end">
+              {" "}
               <input
                 type="checkbox"
-                value="real_data"
+                name="real_data"
+                checked={checkbox.real_data}
                 onChange={handleChecked}
                 className="h-4 w-4 ml-4"
               />
-              <label className="text-lg text-end">Dado Real</label>
-            </div>
+              Dado Real
+            </label>
 
-            <div className="flex gap-1 items-center">
+            <label className="flex gap-1 items-center text-lg text-end">
               <input
                 type="checkbox"
-                value="ml_data"
+                name="ml_data"
                 checked={checkbox.ml_data}
                 onChange={handleChecked}
                 className="h-4 w-4 ml-4"
               />
-              <label className="text-lg text-end">Dado Machine Learning</label>
-            </div>
+              Dado Machine Learning
+            </label>
 
-            <div className="flex gap-1 items-center">
+            <label className="flex gap-1 items-center text-lg text-end">
               <input
                 type="checkbox"
-                value="annotations"
+                name="annotations"
+                checked={checkbox.annotations}
                 onChange={handleChecked}
                 className="h-4 w-4 ml-4"
               />
-              <label className="text-lg text-end">Anotações</label>
-            </div>
+              Anotações
+            </label>
           </div>
         </div>
 
-          <div className=" flex flex-col w-full lg:grid lg:grid-cols-2 gap-4">
-            {/* <LineGraphCard dataSet={dataSets?dataSets[0]:null}/> */}
-            {dataSets ? (
-              <>
-                {Object.entries(dataSets)?.map(([, value], index) => (
-                  <LineGraphCard
-                    key={index}
-                    dataSet={value}
-                    dataShow={checkbox}
-                  />
-                ))}
-                {/* <LineGraphCard series={handleSeries()}/> */}
-              </>
-            ) : (
-              <>
-                <LineGraphCard />
-                <LineGraphCard />
-              </>
-            )}
-          </div>
+        <div className=" flex flex-col w-full lg:grid lg:grid-cols-2 gap-4">
+          {/* <LineGraphCard dataSet={dataSets?dataSets[0]:null}/> */}
+          {dataSets ? (
+            <>
+              {Object.entries(dataSets)?.map(([, value], index) => (
+                <LineGraphCard
+                  key={index}
+                  dataSet={value}
+                  dataShow={checkbox}
+                />
+              ))}
+              {/* <LineGraphCard series={handleSeries()}/> */}
+            </>
+          ) : (
+            <>
+              <LineGraphCard />
+              <LineGraphCard />
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
