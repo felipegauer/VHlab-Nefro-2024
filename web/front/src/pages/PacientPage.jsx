@@ -70,7 +70,7 @@ function PacientPage() {
       <div className="container mx-auto flex flex-col gap-10">
         <div className="w-max flex xl:flex-row xl:items-end gap-4 flex-col">
           <PacientCard pacient={pacient} />
-          <div className="flex gap-2 items-center">
+          <form className="flex gap-2 items-center">
             <label className="flex gap-1 items-center text-lg text-end">
               {" "}
               <input
@@ -104,7 +104,7 @@ function PacientPage() {
               />
               Anotações
             </label>
-          </div>
+          </form>
         </div>
 
         <div className=" flex flex-col w-full lg:grid lg:grid-cols-2 gap-4">
