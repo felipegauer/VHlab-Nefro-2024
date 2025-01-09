@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
 import { ExamInfoContext } from "../../Context/ExamsInfoContext";
 
-export default function LineGraphZoom({ dates, series, dataShow }) {
+export default function LineGraphZoom({ dates, dataShow }) {
   const { examsInfo } = useContext(ExamInfoContext);
   const [info, setInfo] = useState(null);
 
@@ -141,7 +141,7 @@ export default function LineGraphZoom({ dates, series, dataShow }) {
         size: 5,
       },
       title: {
-        text: dates ? dates.real.name : "paciente",
+        text: dates ? dates.ml.name : "paciente",
         align: "center",
       },
       fill: {
