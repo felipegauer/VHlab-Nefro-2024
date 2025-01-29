@@ -32,7 +32,7 @@ function PacientPage() {
       const data = await Service.get(`/api/pacient/exams/${dataset}/${codigo}`);
       if (data.err) console.log(data.err);
       else {
-        setDataSets({ml:data.exams,real:data.exams_real});
+        setDataSets({ml:data.exams,real:data.exams_real?data.exams_real:data.exams});
       }
     };
 
