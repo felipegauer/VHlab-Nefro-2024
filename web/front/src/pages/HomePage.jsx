@@ -1,7 +1,9 @@
 // import { CarouselImg } from "../Components/Carouselmg";
 import { Link } from "react-router-dom";
-import ApexNegative from "../Components/graphs/ApexNegative";
-
+import { useContext, useEffect, useState } from "react";
+import { DatasetContent } from "../Context/DatasetContent";
+import Service from "../Service/backEnd";
+import Select from 'react-select';
 
 export default function HomePage() {
     // let imgs = [
@@ -11,6 +13,24 @@ export default function HomePage() {
     //     // "https://med.estrategia.com/portal/wp-content/uploads/2021/09/puc-rs-residencia-medica-1024x576.webp",
 
     // ]
+
+    const [options,setOptions] = useState(null)
+    const {name,setName} = useContext(DatasetContent);
+
+    useEffect(() => {
+        const getData = async () => {
+            const data = await Service.get(`/api/dataset/all`);
+            if (data.err)
+                console.log(data.err);
+            else {              
+                const op = data.map((d)=>{return {value:d,label:d}})
+                setOptions(op);
+            }
+
+        }
+
+        getData();
+    },[])
     return (
         <div className=" h-full">
             {/* <div className="w-full h-[400px] m-auto">
@@ -18,13 +38,26 @@ export default function HomePage() {
                     <CarouselImg/>
                 </div> */}
                 
-            <div className="container mx-auto text-3xl h-full flex flex-col justify-center items-center ">
+            <div className="container mx-auto text-3xl h-full flex flex-row justify-center items-center gap-4">
                 {/* <img src={NefroRim} alt="" className="w-96" /> */}
-                <Link to='/dataset' className="color-bg px-6 py-2 rounded-xl text-white">
+
+                <div className="flex flex-col gap-2 items-center w-full">
+                <Link to='/dataset' className="color-bg w-min text-center px-6 py-2 rounded-xl text-white">
                     DataSet
                 </Link>
+                <Select
+                    className="text-sm"
+                    options={options}
+                    defaultValue={{value:name,label:name}}
+                    onChange={(e) => setName(e.value)}
+                />
+                </div>
+                
+                {/* <Link to='/dataset' className="color-bg px-6 py-2 rounded-xl text-white">
+                    Criar Paciente
+                </Link> */}
 
-                <ApexNegative/>
+                
 
             </div>
         </div>

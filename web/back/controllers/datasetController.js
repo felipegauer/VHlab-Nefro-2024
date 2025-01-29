@@ -2,6 +2,16 @@ const Dataset = require('../models/Dataset')
 
 
 const datasetController = {
+    all: async function(req, res) {
+        try {
+            const datasets = await Dataset.find()
+            res.json(datasets.map(d => d.name))
+        } catch (error) {
+            res.status(404).json({ err: error })
+        }
+    },
+
+
     info: async function(req, res) {
         try {
             let name = req.params.dataset;
