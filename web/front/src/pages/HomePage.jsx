@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { DatasetContent } from "../Context/DatasetContent";
 import Service from "../Service/backEnd";
 import Select from 'react-select';
+import { PacientContext } from "../Context/PacientContext";
 
 export default function HomePage() {
     // let imgs = [
@@ -16,6 +17,7 @@ export default function HomePage() {
 
     const [options,setOptions] = useState(null)
     const {name,setName} = useContext(DatasetContent);
+    const {setPacientList} = useContext(PacientContext)
 
     useEffect(() => {
         const getData = async () => {
@@ -49,7 +51,7 @@ export default function HomePage() {
                     className="text-sm"
                     options={options}
                     defaultValue={{value:name,label:name}}
-                    onChange={(e) => setName(e.value)}
+                    onChange={(e) => {setName(e.value); setPacientList([])}}
                 />
                 </div>
                 
