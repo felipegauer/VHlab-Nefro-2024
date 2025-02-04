@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "back": "file:",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
