@@ -44,16 +44,17 @@ const datasetController = {
         }
     },
 
-    pacients_stats: async function (req, res) {
+    pacients_stats: async function (req, res) { //TODO: Refatorar
         try {
             let name = req.body.dataset
             const exams = await Exam.find({ dataset: name })
+            const allStats = {}
             const vivosStats = {}
             const mortosStats = {}
 
             let vivos = 0
             let mortos = 0
-            await exams.forEach(p => {
+            exams.forEach(p => {
                 p.exams.forEach(async e => {
                     let soma = 0
                     let l = 0
@@ -62,32 +63,38 @@ const datasetController = {
                         l++
                     })
                     const media = soma / l;
-                    const pacient = await Pacient.findOne({ codigo: p.codigo })
-                    if(pacient.desfecho === 'Vivo'){
-                        console.log('vivo');
+
+                    allStats[e.name] = allStats[e.name] ? allStats[e.name] + media : media
+                    // const pacient = await Pacient.findOne({ codigo: p.codigo })
+                    // if(pacient.desfecho === 'Vivo'){
+                    //     console.log('vivo');
                         
-                        vivos++
-                        vivosStats[e.name] = vivosStats[e.name] ? vivosStats[e.name] + media : media
-                    }else{
-                        mortos++
-                        mortosStats[e.name] = mortosStats[e.name] ? mortosStats[e.name] + media : media
-                    }
+                    //     vivos++
+                    //     vivosStats[e.name] = vivosStats[e.name] ? vivosStats[e.name] + media : media
+                    // }else{
+                    //     mortos++
+                    //     mortosStats[e.name] = mortosStats[e.name] ? mortosStats[e.name] + media : media
+                    // }
                     
                 });
 
             })
             
-            for (const key in vivosStats) {
-                vivosStats[key] = vivosStats[key] / vivos
+            // for (const key in vivosStats) {
+            //     vivosStats[key] = vivosStats[key] / vivos
+            // }
+
+            // for (const key in mortosStats) {
+            //     mortosStats[key] = mortosStats[key] / mortos
+            // }
+
+
+            for (const key in allStats) {
+                allStats[key] = allStats[key] / exams.length
             }
 
-            for (const key in mortosStats) {
-                mortosStats[key] = mortosStats[key] / mortos
-            }
 
-
-
-            res.json({ vivos: vivosStats, mortos: mortosStats })
+            res.json(allStats)
 
         } catch (error) {
             res.status(404).json({ err: error })

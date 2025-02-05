@@ -12,6 +12,7 @@ import GraphPage from "./pages/GraphPage.jsx";
 import DataSetPage from "./pages/DataSetPage.jsx";
 import { DatasetProvyder } from "./Context/DatasetContent.jsx";
 import { ExamInfoProvyder } from "./Context/ExamsInfoContext";
+import CustomPacientPage from "./pages/CustomPacientPage.jsx";
 
 const Layout = () => (
   <>
@@ -32,9 +33,7 @@ const router = createBrowserRouter([
       {
         path: "/paciente/:dataset/:codigo",
         element: (
-          <ExamInfoProvyder>
-            <PacientPage />
-          </ExamInfoProvyder>
+          <PacientPage />
         ),
       },
       {
@@ -50,6 +49,10 @@ const router = createBrowserRouter([
         element: <DataSetPage />,
       },
       {
+        path: "/test",
+        element: <CustomPacientPage />
+      },
+      {
         path: "*",
         element: <PageNotFound />,
       },
@@ -61,7 +64,9 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <DatasetProvyder>
       <PacientProvyder>
-        <RouterProvider router={router} />
+        <ExamInfoProvyder>
+          <RouterProvider router={router} />
+        </ExamInfoProvyder>
       </PacientProvyder>
     </DatasetProvyder>
   </StrictMode>
