@@ -46,33 +46,43 @@ const handleFile = (e) => {
         const json = XLSX.utils.sheet_to_json(sheet);
         const columns = XLSX.utils.sheet_to_json(sheet, { header: 1 })[0];
         const exams = [];
+        let y = 2021;
+        const d = new Date()
+        d.setFullYear(y,0,1)
 
         try {
             columns.forEach((column) => {
                 
                 if (!(column === "Mês/Ano")){
-                    console.log(column);
                     
                     let obj = {
                         name: column,
                         data: []
                     }
-                    console.log(obj);
                 
                     json.forEach((element) => {
                         let obj2 ={
-                            x: element["Mês/Ano"],
+                            x: d.toDateString(),
                             y: element[column]
                         }
                         obj.data.push(obj2)
+                        y++
+                        d.setFullYear(y,0,1)
+                        
                     });
                     exams.push(obj)
+                    y=2021
+                    d.setFullYear(y,0,1)
+                    
                 }
     
             });
+            
+            setDataSets({real:exams,ml:exams})
+            
     
         } catch (error) {
-            console.log("Erro ao carregar arquivo")
+            console.log(error)
         }
 
         

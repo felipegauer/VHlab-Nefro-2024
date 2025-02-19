@@ -17,12 +17,12 @@ export default function Navbar2() {
     let [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="shadow-md w-full color-bg text-white  top-0 left-0 z-50">
+        <div className="shadow-md w-full color-bg text-white sticky opacity-95 top-0 left-0 z-50">
             <div className='md:container md:mx-lg '>
-                <div className='py-4 px-4 md:px-0 md:flex justify-between items-center'>
+                <div className='py-3 px-4 md:px-0 md:flex justify-between items-center'>
                     {/*Logo*/}
                     <div className='flex text-xl cursor-pointer items-center gap-4 '>
-                        <div className=' h-10'>
+                        <div className=' h-11'>
                             <a href='https://vhlab.com.br/' target='_blank'><img src={vhlavb} className='w-full transition-all transform hover:scale-110 ease-in-out delay-75 h-full ' /></a>
                         </div>
                         <h1 className='ms-1'>+</h1>
@@ -42,7 +42,7 @@ export default function Navbar2() {
                  md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${isOpen ? 'top-18' : 'top-[-490px]'}`}>
                         {
                             links.map((link, index) => (
-                                <li key={index} className='my-7 text-lg font-normal md:my-0 md:mr-8'>
+                                <li key={index} className='my-7 text-base font-normal md:my-0 md:mr-8 hover:text-gray-300 '>
                                     <Link to={link.link} className={link.disable?"pointer-events-none text-gray-400":""}>{link.name}</Link>
                                 </li>))
                         }

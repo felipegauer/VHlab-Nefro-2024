@@ -49,8 +49,6 @@ export default function LineGraphZoom({ dates, dataShow }) {
       // color: "#9C27B0"
     })
 
-    console.log(serie);
-
     return serie
   }
   
