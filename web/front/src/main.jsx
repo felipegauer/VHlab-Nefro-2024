@@ -12,7 +12,9 @@ import GraphPage from "./pages/GraphPage.jsx";
 import DataSetPage from "./pages/DataSetPage.jsx";
 import { DatasetProvyder } from "./Context/DatasetContent.jsx";
 import { ExamInfoProvyder } from "./Context/ExamsInfoContext";
+import { AnnotationContext, AnnotationProvyder } from "./Context/AnnotationContext";
 import CustomPacientPage from "./pages/CustomPacientPage.jsx";
+import AnnotationPage from "./pages/AnnotationsPage";
 
 const Layout = () => (
   <>
@@ -49,6 +51,10 @@ const router = createBrowserRouter([
         element: <DataSetPage />,
       },
       {
+        path: "/anotacoes",
+        element: <AnnotationPage/>
+      },
+      {
         path: "/test",
         element: <CustomPacientPage />
       },
@@ -65,7 +71,9 @@ createRoot(document.getElementById("root")).render(
     <DatasetProvyder>
       <PacientProvyder>
         <ExamInfoProvyder>
-          <RouterProvider router={router} />
+          <AnnotationProvyder>
+            <RouterProvider router={router} />
+          </AnnotationProvyder>
         </ExamInfoProvyder>
       </PacientProvyder>
     </DatasetProvyder>

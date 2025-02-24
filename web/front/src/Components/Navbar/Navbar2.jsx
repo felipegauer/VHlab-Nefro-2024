@@ -10,8 +10,10 @@ export default function Navbar2() {
 
     let links = [
         { name: 'Início', link: '/' },
+        { name: 'Anotações', link: '/anotacoes' },
         { name: 'Sobre', link: '/sobre',disable:true },
         { name: 'Contato', link: '/contato',disable:true  }
+        
     ]
 
     let [isOpen, setIsOpen] = useState(false);
