@@ -51,6 +51,10 @@ body {
   background-color: #004370;
 }
 
+.color-dark{
+  background-color: #012a46;
+}
+
 .blur-box {
   box-shadow: 0 0 5px 5px #004370;
 }

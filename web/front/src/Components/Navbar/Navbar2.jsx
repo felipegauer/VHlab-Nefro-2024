@@ -12,7 +12,7 @@ export default function Navbar2() {
         { name: 'Início', link: '/' },
         { name: 'Anotações', link: '/anotacoes' },
         { name: 'Sobre', link: '/sobre',disable:true },
-        { name: 'Contato', link: '/contato',disable:true  }
+        { name: 'Contato', link: '/contato',  }
         
     ]
 

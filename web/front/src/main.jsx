@@ -15,6 +15,7 @@ import { ExamInfoProvyder } from "./Context/ExamsInfoContext";
 import { AnnotationContext, AnnotationProvyder } from "./Context/AnnotationContext";
 import CustomPacientPage from "./pages/CustomPacientPage.jsx";
 import AnnotationPage from "./pages/AnnotationsPage";
+import ContactPage from "./pages/ContactPage";
 
 const Layout = () => (
   <>
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "/test",
         element: <CustomPacientPage />
+      },
+      {
+        path:"/contato",
+        element:<ContactPage/>
       },
       {
         path: "*",
