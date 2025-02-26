@@ -3,15 +3,18 @@ import AnnotationsComponent from "../Components/AnnotationsComponent";
 import { AnnotationContext } from "../Context/AnnotationContext";
 import Loading from "../Components/Loading";
 import { Alert, Box, Collapse, IconButton } from "@mui/material";
-import {CloseIcon}from "@mui/icons-material";
+import CloseIcon from "@mui/icons-material/Close";
+import AddIcon from "@mui/icons-material/Add";
+import AnnotationsForm from "../Components/AnnotationsForm";
 
 function AnnotationPage() {
   const [annotationsFetch, setAnnotationsFetch] = useState([]);
   const { annotations, setAnnotations } = useContext(AnnotationContext);
   const [hidden, setHidden] = useState("hidden");
   const [open, setOpen] = useState(false);
-  const [error,setError] = useState(null);
-  const [success,setSuccess] = useState("Atualizado com sucesso!");
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState("Atualizado com sucesso!");
+  const [addNew, setAddNew] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -44,23 +47,44 @@ function AnnotationPage() {
       });
       const data = await response.json();
       console.log(data);
-      
+
       if (data.err) setError(data);
       else setSuccess(data);
-        
     } catch (error) {
       setError(error);
     }
     setHidden("hidden");
     setOpen(true);
   };
+
+
+  const shoAnnotations = ()=>{
+    for(let annotation in annotations){
+      
+      return <AnnotationsComponent
+        key={annotation}
+        name={annotation}
+        low={annotations[annotation].low}
+        high={annotations[annotation].high}
+      />
+    }
+  }
   return (
     <>
       <div className="container pt-8">
-        <Box sx={{ width: "400px", position: "fixed", top: 68, right: 0, opacity: 0.8, zIndex: 1000 }}>
+        <Box
+          sx={{
+            width: "400px",
+            position: "fixed",
+            top: 68,
+            right: 0,
+            opacity: 0.8,
+            zIndex: 1000,
+          }}
+        >
           <Collapse in={open}>
             <Alert
-              severity={error?"error":"success"}
+              severity={error ? "error" : "success"}
               action={
                 <IconButton
                   aria-label="close"
@@ -75,7 +99,7 @@ function AnnotationPage() {
               }
               sx={{ mb: 2 }}
             >
-              {error?error.err:success.message}
+              {error ? error.err : success.message}
             </Alert>
           </Collapse>
         </Box>
@@ -92,7 +116,9 @@ function AnnotationPage() {
         </div>
 
         <div className="grid md:grid-cols-3 justify-center gap-10 grid-cols-1 p-4 ">
-          {annotationsFetch.map((annotation, index) => (
+          {
+            shoAnnotations()}{
+          annotationsFetch.map((annotation, index) => (
             <AnnotationsComponent
               key={index}
               name={annotation.exam}
@@ -100,9 +126,17 @@ function AnnotationPage() {
               high={annotation.high}
             />
           ))}
-          <div className="bg-white p-4 rounded-lg shadow-md">
 
-          </div>
+          {addNew ? (
+            <AnnotationsForm setAddNew={setAddNew} />
+          ) : (
+            <div
+              className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center hover:cursor-pointer"
+              onClick={() => setAddNew(true)}
+            >
+              <AddIcon sx={{ fontSize: 30 }} />
+            </div>
+          )}
         </div>
       </div>
 
