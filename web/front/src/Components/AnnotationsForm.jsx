@@ -61,7 +61,6 @@ function AnnotationsForm({ name, low, high, setAddNew }) {
           <input
             type="text"
             className="border border-black rounded"
-            value={exam}
             onChange={(e) => setExam(e.target.value)}
           />
         </div>

@@ -20,7 +20,7 @@ function AnnotationPage() {
     async function fetchData() {
       const response = await fetch("api/info/all");
       const data = await response.json();
-      setAnnotationsFetch(data);
+
       const aux = {};
       data.map(
         (annotation) =>
@@ -29,6 +29,7 @@ function AnnotationPage() {
             high: annotation.high,
           })
       );
+      setAnnotationsFetch(aux);
       setAnnotations(aux);
     }
 
@@ -46,7 +47,6 @@ function AnnotationPage() {
         body: JSON.stringify(annotations),
       });
       const data = await response.json();
-      console.log(data);
 
       if (data.err) setError(data);
       else setSuccess(data);
@@ -57,18 +57,24 @@ function AnnotationPage() {
     setOpen(true);
   };
 
-
-  const shoAnnotations = ()=>{
-    for(let annotation in annotations){
-      
-      return <AnnotationsComponent
-        key={annotation}
-        name={annotation}
-        low={annotations[annotation].low}
-        high={annotations[annotation].high}
-      />
+  const shoAnnotations = () => {
+    const aux = [];
+    for (let annotation in annotations) {
+      aux.push(
+        <AnnotationsComponent
+          key={annotation}
+          name={annotation}
+          low={annotations[annotation].low}
+          high={annotations[annotation].high}
+        />
+      );
     }
-  }
+    return aux;
+  };
+
+  useEffect(() => {
+    console.log(annotations);
+  }, [annotations]);
   return (
     <>
       <div className="container pt-8">
@@ -112,20 +118,18 @@ function AnnotationPage() {
             >
               Atualizar
             </button>
+
+            <button
+              className="bg-gray-600 text-white p-2 rounded"
+              onClick={() => setAnnotations(annotationsFetch)}
+            >
+              Limpar
+            </button>
           </div>
         </div>
 
         <div className="grid md:grid-cols-3 justify-center gap-10 grid-cols-1 p-4 ">
-          {
-            shoAnnotations()}{
-          annotationsFetch.map((annotation, index) => (
-            <AnnotationsComponent
-              key={index}
-              name={annotation.exam}
-              low={annotation.low}
-              high={annotation.high}
-            />
-          ))}
+          {shoAnnotations()}
 
           {addNew ? (
             <AnnotationsForm setAddNew={setAddNew} />
