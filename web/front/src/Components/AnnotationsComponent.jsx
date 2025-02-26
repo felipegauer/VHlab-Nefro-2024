@@ -31,7 +31,7 @@ function AnnotationsComponent({ name, low, high }) {
   return (
     <Card>
       <div className="flex flex-col gap-3">
-        <div className="font-semibold ms-3">{name ? name : "Undefined"}</div>
+        <div className="font-bold ms-3">{name ? name : "Undefined"}</div>
         <div>
           <div className="flex justify-around">
             <div>
