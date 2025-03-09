@@ -1,8 +1,6 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import { motion, useMotionValue, useTransform } from "motion/react"
-import Counter from './components/Counter'
-import Card from './components/Card'
+import Card from '../components/Card'
 
 function App() {
   const [imgs, setImgs] = useState(data)
