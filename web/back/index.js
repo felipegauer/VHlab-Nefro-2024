@@ -10,7 +10,7 @@ const cors = require('cors');
 
 const app = express()
 
-app.use(cors({ origin: 'https://vhlab-nefro.netlify.app', credentials: true }));
+app.use(cors());
 
 
 mongoose.connect(process.env.MONGO_URI).catch((err)=>{console.log(err);});
