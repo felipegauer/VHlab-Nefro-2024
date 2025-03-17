@@ -1,4 +1,4 @@
-import Skeleton from "../skeleton"
+import Skeleton from "../Skeleton"
 import PieGraph from "../graphs/PieGraph"
 import Card from "../Card"
 import PropTypes from 'prop-types';
