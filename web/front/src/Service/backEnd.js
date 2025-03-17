@@ -22,6 +22,7 @@ const post = async (url, data) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
+    mode: "no-cors",
   })
     .then((res) => res.json())
     .then((data) => (dataR = data))
