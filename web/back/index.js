@@ -6,17 +6,15 @@ const userRouter = require('./routes/userRouter')
 const datasetRouter = require('./routes/datasetRouter')
 const authenticateToken = require('./auth/authMiddleware')
 const mongoose = require('mongoose')
-const path = require('path')
+const cors = require('cors');
 
 const app = express()
 
+app.use(cors({ origin: 'https://vhlab-nefro.netlify.app', credentials: true }));
 
 
 mongoose.connect(process.env.MONGO_URI).catch((err)=>{console.log(err);});
 const db = mongoose.connection;
-
-app.use(express.static(path.join(__dirname, '../front/dist')));
-
 
 app.use('/api/user',express.json() ,userRouter);
 app.use('/api/pacient',express.json() ,authenticateToken,pacientRouter);
