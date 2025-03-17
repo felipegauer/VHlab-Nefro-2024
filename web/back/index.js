@@ -10,7 +10,12 @@ const cors = require('cors');
 
 const app = express()
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://vhlab-nefro.netlify.app', // Domínio do frontend
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'authorization-token'], // Permite headers personalizados
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+  }));
 
 
 mongoose.connect(process.env.MONGO_URI).catch((err)=>{console.log(err);});
