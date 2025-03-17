@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LineGraphCard from "../Components/graphsCards/LineGraphCard";
 import PacientCard from "../Components/PacientCard";
 import { useContext, useEffect, useState } from "react";
@@ -15,6 +15,8 @@ function PacientPage() {
     annotations: true,
   });
   const {token} = useContext(UserContent)
+  const Navigate = useNavigate();
+  
 
   const { setExamsInfo } = useContext(ExamInfoContext);
 
@@ -22,7 +24,7 @@ function PacientPage() {
   const { dataset } = useParams();
   
   useEffect(() => {
-    if(!token)window.location.href= "/login"
+    if(!token)Navigate("/login");
 },[token])
 
   useEffect(() => {

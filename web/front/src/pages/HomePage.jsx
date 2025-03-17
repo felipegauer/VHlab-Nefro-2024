@@ -1,5 +1,5 @@
 // import { CarouselImg } from "../Components/Carouselmg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { DatasetContent } from "../Context/DatasetContent";
 import Service from "../Service/backEnd";
@@ -20,6 +20,8 @@ export default function HomePage() {
     const {name,setName} = useContext(DatasetContent);
     const {setPacientList} = useContext(PacientContext)
     const {token} = useContext(UserContent);
+    const Navigate = useNavigate();
+    
 
     useEffect(() => {
         const getData = async () => {
@@ -32,7 +34,7 @@ export default function HomePage() {
             }
 
         }
-        if(!token) window.location.href= "/login"
+        if(!token) Navigate("/login");
         getData();
     },[])
     return (

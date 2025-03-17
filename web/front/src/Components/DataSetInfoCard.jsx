@@ -4,6 +4,7 @@ import SkeletonInfo from "./SkeletonInfo"
 import Service from "../Service/backEnd"
 import { DatasetContent } from "../Context/DatasetContent"
 import { UserContent } from "../Context/UserContent"
+import { useNavigate } from "react-router-dom"
 
 const classNameString = "w-max p-4 rounded-lg border"
 export default function DataSetInfoCard() {
@@ -11,6 +12,8 @@ export default function DataSetInfoCard() {
     const [info, setInfo] = useState(null)
     const {name,setInfoDataSet} = useContext(DatasetContent)
     const{token} = useContext(UserContent)
+    const Navigate = useNavigate();
+   
 
     useEffect(() => {
         const getData = async () => {
@@ -25,7 +28,7 @@ export default function DataSetInfoCard() {
             }
         }
 
-        if(!token)window.location.href= "/login"
+        if(!token)Navigate("/login");
         getData()
     }, [])
 

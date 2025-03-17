@@ -3,6 +3,7 @@ import Service from "../Service/backEnd"
 import { PacientContext } from "../Context/PacientContext"
 import { DatasetContent } from "../Context/DatasetContent";
 import { UserContent } from "../Context/UserContent";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Table() {
@@ -14,6 +15,8 @@ export default function Table() {
     const { examsInfo, setExamsInfo } = useContext(PacientContext);
     const {name} = useContext(DatasetContent)
     const {token} = useContext(UserContent)
+    const Navigate = useNavigate();
+    
 
     useEffect(() => {
         const getData = async () => {
@@ -28,7 +31,7 @@ export default function Table() {
 
         }
 
-        if(!token)window.location.href= "/login"
+        if(!token)Navigate("/login");
         getData();
     }, [])
 

@@ -1,6 +1,6 @@
 import Male from "../assets/malePacient.svg"
 import Female from "../assets//femalePacient.svg"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useContext, useEffect, useState } from "react"
 import SkeletonInfo from "./SkeletonInfo"
 import Info from "../assets/info.svg"
@@ -23,10 +23,12 @@ export default function PacientList() {
     })
     const {name} = useContext(DatasetContent)
     const {token}  = useContext(UserContent)
+    const Navigate = useNavigate();
+    
 
 
     useEffect(() => {
-        if(!token)window.location.href= "/login"
+        if(!token)Navigate("/login");
     },[token])
 
     useEffect(() => {
