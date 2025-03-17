@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, '../front/dist')));
 
 app.use('/api/user',express.json() ,userRouter);
 app.use('/api/pacient',express.json() ,authenticateToken,pacientRouter);
-app.use('/apo/info',express.json() ,infoRouter);
+app.use('/api/info',express.json() ,infoRouter);
 app.use('/api/dataset',express.json(), authenticateToken , datasetRouter);//app.use('/dataset',express.json() ,authenticateToken, datasetRouter);
 app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname, '../front/dist/index.html'));
