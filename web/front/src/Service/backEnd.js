@@ -1,15 +1,33 @@
-
-const get = async (url) => {
-    let dataR ={err:"error"};
-     await fetch(url,{
-        method: "GET",mode: 'no-cors'})
-        .then((res) => res.json())
-        .then((data)=> dataR = data)
-        .catch((err) => dataR.err = err);
-
-        return dataR;
+const get = async (url, token) => {
+  let dataR = { err: "error" };
+  await fetch(url, {
+    method: "GET",
+    headers: {
+      "authorization-token": token,
+    },
     
+  })
+    .then((res) => res.json())
+    .then((data) => (dataR = data))
+    .catch((err) => (dataR.err = err));
 
-}
+  return dataR;
+};
 
-export default {get};
+const post = async (url, data) => {
+  let dataR = { err: "error" };
+  await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => res.json())
+    .then((data) => (dataR = data))
+    .catch((err) => (dataR.err = err));
+
+  return dataR;
+};
+
+export default { get, post };

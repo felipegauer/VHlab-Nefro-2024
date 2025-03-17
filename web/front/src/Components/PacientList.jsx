@@ -8,6 +8,7 @@ import Service from "../Service/backEnd"
 import { PacientContext } from "../Context/PacientContext"
 import { DatasetContent } from "../Context/DatasetContent"
 import PacientListParams from "./PacientListParams"
+import { UserContent } from "../Context/UserContent"
 
 
 export default function PacientList() {
@@ -21,11 +22,17 @@ export default function PacientList() {
         date: null
     })
     const {name} = useContext(DatasetContent)
+    const {token}  = useContext(UserContent)
+
+
+    useEffect(() => {
+        if(!token)window.location.href= "/login"
+    },[token])
 
     useEffect(() => {
         const getData = async () => {
             SetLoading(true)
-            const data = await Service.get(`/api/pacient/${name}/all`);
+            const data = await Service.get(`/api/pacient/${name}/all`,token);
             if (data.err)
                 console.log(data.err);
             else{

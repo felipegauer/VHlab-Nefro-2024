@@ -72,9 +72,6 @@ function AnnotationPage() {
     return aux;
   };
 
-  useEffect(() => {
-    console.log(annotations);
-  }, [annotations]);
   return (
     <>
       <div className="container pt-8">

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import Service from "../Service/backEnd"
 import { PacientContext } from "../Context/PacientContext"
 import { DatasetContent } from "../Context/DatasetContent";
+import { UserContent } from "../Context/UserContent";
 
 
 export default function Table() {
@@ -12,10 +13,11 @@ export default function Table() {
     })
     const { examsInfo, setExamsInfo } = useContext(PacientContext);
     const {name} = useContext(DatasetContent)
+    const {token} = useContext(UserContent)
 
     useEffect(() => {
         const getData = async () => {
-            const data = await Service.get(`/api/dataset/${name}/stats`);
+            const data = await Service.get(`/api/dataset/${name}/stats`,token);
             if (data.err)
                 console.log(data.err);
             else {
@@ -26,10 +28,8 @@ export default function Table() {
 
         }
 
-        if (examsInfo) {
-            setDataSet(examsInfo)
-        } else
-            getData();
+        if(!token)window.location.href= "/login"
+        getData();
     }, [])
 
 const formatData = (data) => { 

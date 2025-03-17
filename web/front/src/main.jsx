@@ -12,10 +12,12 @@ import GraphPage from "./pages/GraphPage.jsx";
 import DataSetPage from "./pages/DataSetPage.jsx";
 import { DatasetProvyder } from "./Context/DatasetContent.jsx";
 import { ExamInfoProvyder } from "./Context/ExamsInfoContext";
-import { AnnotationContext, AnnotationProvyder } from "./Context/AnnotationContext";
+import { AnnotationProvyder } from "./Context/AnnotationContext";
+import { UserProvyder } from "./Context/UserContent";
 import CustomPacientPage from "./pages/CustomPacientPage.jsx";
 import AnnotationPage from "./pages/AnnotationsPage";
 import ContactPage from "./pages/ContactPage";
+import LoginPage from "./pages/LoginPage";
 
 const Layout = () => (
   <>
@@ -35,9 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/paciente/:dataset/:codigo",
-        element: (
-          <PacientPage />
-        ),
+        element: <PacientPage />,
       },
       {
         path: "/sobre",
@@ -53,21 +53,25 @@ const router = createBrowserRouter([
       },
       {
         path: "/anotacoes",
-        element: <AnnotationPage/>
+        element: <AnnotationPage />,
       },
       {
         path: "/test",
-        element: <CustomPacientPage />
+        element: <CustomPacientPage />,
       },
       {
-        path:"/contato",
-        element:<ContactPage/>
+        path: "/contato",
+        element: <ContactPage />,
       },
       {
         path: "*",
         element: <PageNotFound />,
       },
     ],
+  },
+  {
+    path:"/login",
+    element: <LoginPage />,
   },
 ]);
 
@@ -77,7 +81,9 @@ createRoot(document.getElementById("root")).render(
       <PacientProvyder>
         <ExamInfoProvyder>
           <AnnotationProvyder>
-            <RouterProvider router={router} />
+            <UserProvyder>
+              <RouterProvider router={router} />
+            </UserProvyder>
           </AnnotationProvyder>
         </ExamInfoProvyder>
       </PacientProvyder>

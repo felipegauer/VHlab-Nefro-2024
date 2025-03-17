@@ -4,6 +4,7 @@ import PacientCard from "../Components/PacientCard";
 import { useContext, useEffect, useState } from "react";
 import Service from "../Service/backEnd";
 import { ExamInfoContext } from "../Context/ExamsInfoContext";
+import { UserContent } from "../Context/UserContent";
 
 function PacientPage() {
   const [pacient, setPacient] = useState(null);
@@ -13,15 +14,20 @@ function PacientPage() {
     ml_data: true,
     annotations: true,
   });
+  const {token} = useContext(UserContent)
 
   const { setExamsInfo } = useContext(ExamInfoContext);
 
   const { codigo } = useParams();
   const { dataset } = useParams();
+  
+  useEffect(() => {
+    if(!token)window.location.href= "/login"
+},[token])
 
   useEffect(() => {
     const getData = async () => {
-      const data = await Service.get(`/api/pacient/${dataset}/${codigo}`);
+      const data = await Service.get(`/api/pacient/${dataset}/${codigo}`,token);
       if (data.err) console.log(data.err);
       else {
         setPacient(data);
@@ -29,7 +35,7 @@ function PacientPage() {
     };
 
     const getDataSet = async () => {
-      const data = await Service.get(`/api/pacient/exams/${dataset}/${codigo}`);
+      const data = await Service.get(`/api/pacient/exams/${dataset}/${codigo}`,token);
       if (data.err) console.log(data.err);
       else {
         setDataSets({ml:data.exams,real:data.exams_real?data.exams_real:data.exams});

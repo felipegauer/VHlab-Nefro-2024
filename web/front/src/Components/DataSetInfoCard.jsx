@@ -3,17 +3,19 @@ import DataSet from "../assets/DataSet.svg"
 import SkeletonInfo from "./SkeletonInfo"
 import Service from "../Service/backEnd"
 import { DatasetContent } from "../Context/DatasetContent"
+import { UserContent } from "../Context/UserContent"
 
 const classNameString = "w-max p-4 rounded-lg border"
 export default function DataSetInfoCard() {
     const [loading, setLoading] = useState(true)
     const [info, setInfo] = useState(null)
     const {name,setInfoDataSet} = useContext(DatasetContent)
+    const{token} = useContext(UserContent)
 
     useEffect(() => {
         const getData = async () => {
             setLoading(true)
-            const data = await Service.get(`/api/dataset/${name}/info`)
+            const data = await Service.get(`/api/dataset/${name}/info`,token)
             if (data.err)
                 console.log(data.err);
             else {
@@ -23,6 +25,7 @@ export default function DataSetInfoCard() {
             }
         }
 
+        if(!token)window.location.href= "/login"
         getData()
     }, [])
 

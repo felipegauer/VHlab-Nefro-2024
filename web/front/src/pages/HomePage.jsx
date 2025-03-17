@@ -5,6 +5,7 @@ import { DatasetContent } from "../Context/DatasetContent";
 import Service from "../Service/backEnd";
 import Select from 'react-select';
 import { PacientContext } from "../Context/PacientContext";
+import { UserContent } from "../Context/UserContent";
 
 export default function HomePage() {
     // let imgs = [
@@ -18,10 +19,11 @@ export default function HomePage() {
     const [options,setOptions] = useState(null)
     const {name,setName} = useContext(DatasetContent);
     const {setPacientList} = useContext(PacientContext)
+    const {token} = useContext(UserContent);
 
     useEffect(() => {
         const getData = async () => {
-            const data = await Service.get(`/api/dataset/all`);
+            const data = await Service.get(`/api/dataset/all`,token);
             if (data.err)
                 console.log(data.err);
             else {              
@@ -30,7 +32,7 @@ export default function HomePage() {
             }
 
         }
-
+        if(!token) window.location.href= "/login"
         getData();
     },[])
     return (
