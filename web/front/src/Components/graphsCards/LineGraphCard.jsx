@@ -1,5 +1,5 @@
 import Card from "../Card";
-import Skeleton from "../skeleton";
+import Skeleton from "../Skeleton";
 // import LineGraph from "../graphs/LineGraph";
 import LineGraphZoom from "../graphs/LineGraphZoom";
 import PropType from "prop-types";
