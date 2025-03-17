@@ -1,5 +1,5 @@
 import { ChartPieIcon } from "@heroicons/react/24/solid"
-import PropTypes from 'prop-types';
+
 
 export default function Skeleton({className, src,srcClass}) {
     return (
@@ -11,9 +11,3 @@ export default function Skeleton({className, src,srcClass}) {
         </div>
     )
 }
-
-Skeleton.propTypes = {
-    className: PropTypes.string,
-    src: PropTypes.string,
-    srcClass: PropTypes.string,
-};
