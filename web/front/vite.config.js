@@ -7,9 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/': {
-        target: 'http://127.0.0.1:5000',
+        target: 'https://v-hlab-nefro-2024-c6chqtq7v-felipes-projects-00b95a9d.vercel.app',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
   }
