@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/': {
-        target: 'https://v-hlab-nefro-2024-c6chqtq7v-felipes-projects-00b95a9d.vercel.app',
+        target: 'https://vhlab-nefro.vercel.app/',
         changeOrigin: true,
       }
     }

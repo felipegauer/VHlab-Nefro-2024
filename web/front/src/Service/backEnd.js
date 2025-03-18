@@ -1,6 +1,6 @@
 const get = async (url, token) => {
   let dataR = { err: "error" };
-  await fetch(url, {
+  await fetch(`https://vhlab-nefro.vercel.app${url}`, {
     method: "GET",
     headers: {
       "authorization-token": token,
@@ -16,7 +16,7 @@ const get = async (url, token) => {
 
 const post = async (url, data) => {
   let dataR = { err: "error" };
-  await fetch(url, {
+  await fetch(`https://vhlab-nefro.vercel.app${url}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
