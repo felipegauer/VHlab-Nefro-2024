@@ -43,7 +43,7 @@ export default function LoginPage() {
               className="border border-gray-400 rounded-lg p-1"
               {...register("password")}
             />
-            <button
+            <div
               className="absolute right-0 top-0 p-1"
               onClick={() => setShow(!show)}
             >
@@ -52,9 +52,9 @@ export default function LoginPage() {
               ) : (
                 <EyeIcon className="h-6 w-6 text-gray-500" />
               )}
-            </button>
+            </div>
           </div>
-          <button className="bg-blue-500 text-white rounded-lg p-2 w-">
+          <button type="submit" className="bg-blue-500 text-white rounded-lg p-2 w-">
             Entrar
           </button>
         </form>
