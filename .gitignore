@@ -428,5 +428,6 @@ sketch
 **/*.xlsx
 data
 .csv
+**/*.csv
 
 # End of https://www.toptal.com/developers/gitignore/api/node,react,flask,python,jupyternotebooks,dotenv
